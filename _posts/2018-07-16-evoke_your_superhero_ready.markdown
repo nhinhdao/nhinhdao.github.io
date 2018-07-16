@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Evoke  your Superhero. Ready?"
-date:       2018-07-16 22:02:56 +0000
+date:       2018-07-16 18:02:57 -0400
 permalink:  evoke_your_superhero_ready
 ---
 
