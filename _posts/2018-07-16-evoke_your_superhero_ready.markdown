@@ -14,16 +14,16 @@ Now let me fly you though my first project: **Marvel Best Superheroes**
 
 As the title, you would see this is what printing on your terminal when running the code:
 
-![](https://imgur.com/csgDbna)
+![](https://i.imgur.com/csgDbna.png)
 
 Let's choose the OP bagde: 
 
-![](https://imgur.com/Hr8UDri)
+![](https://imgur.com/Hr8UDri.png)
 
 and here is my Iron Man ladies and gentlemen:
 
-![](https://imgur.com/2Fo9Js0)
-![](https://imgur.com/QDEzfBy)
+![](https://imgur.com/2Fo9Js0.png)
+![](https://imgur.com/QDEzfBy.png)
 
 How's it? Simple right? I know. But it is the work of few days struggle through step by step so I am very proud of it :D
 
