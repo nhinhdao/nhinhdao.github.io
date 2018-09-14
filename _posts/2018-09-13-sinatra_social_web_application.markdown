@@ -6,7 +6,7 @@ permalink:  sinatra_social_web_application
 ---
 
 
-![Home Page](https://i.imgur.com/A6WoZas.png?1)
+![Home Page](https://i.imgur.com/A6WoZas.png?2)
 
 Building a simple sinatra web application isn't hard but it sure will take times and effort to end up having a site that is interactive and informative.
 
