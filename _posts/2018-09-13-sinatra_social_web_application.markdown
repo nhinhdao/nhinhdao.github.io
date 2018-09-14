@@ -45,7 +45,7 @@ But as things go along, more and more problems come along as well.
 ```
 
 
-Message belongs to a User and a Friend, hence it has a `user_id` and a `friend_id`. `user_id` is who composed the message, friend_id is who the message was sent to. But friend_id` is just another `user_id`. How can a message has 2 user_ids. This cause a problem that only `message_test.user` has this message in record :
+Message belongs to a User and a Friend, hence it has a `user_id` and a `friend_id`.  `user_id` is who composed the message, `friend_id` is who the message was sent to. But `friend_id` is just another `user_id`. How can a message has 2 user_ids. This cause a problem that only `message_test.user` has this message in record :
 
 ```ruby
 >> message_test.user
@@ -95,13 +95,20 @@ We can just manipulate it as any other ruby arrays/objects. Remember, all messag
 
 To get the messages that was composed by current user
 
-` my_messages = current_user.messages`
+```ruby 
+my_messages = current_user.messages
+```
 
-or `my_messages = Message.all.select {|m| m.user == current_user}`
+or 
+```ruby 
+my_messages = Message.all.select {|m| m.user == current_user}
+```
 
 To get the messages that was sent to current user
 
-`messages_from_friends = Message.all.select {|m| m.friend == current_user}`
+```ruby 
+messages_from_friends = Message.all.select {|m| m.friend == current_user}
+```
 
 ![](https://i.imgur.com/MfwFp6t.png?1)
 
