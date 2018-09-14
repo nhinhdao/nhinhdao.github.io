@@ -8,11 +8,11 @@ permalink:  sinatra_social_web_application
 
 ![Home Page](https://i.imgur.com/A6WoZas.png?2)
 
-Building a simple sinatra web application isn't hard but it sure will take times and effort to end up having a site that is interactive and informative.
+Building a simple **sinatra web application** isn't hard but it sure will take times and effort to end up having a site that is interactive and informative.
 
-I want to build a website that mimics the connection between users (as user and friends) and their messages (Not conversation. The site is static, unfortulately). 
+I want to build a website that mimics the connection between **users** (as **user** and **friends**) and their messages (not conversation. The site is static, unfortulately). 
 
-Since User and Friend are both belongs to User class, they can't have a `has_many` or `belongs_to` relationship as usual.  User `has_many` Friends, sounds good. But Friend `has_many` Users? or `belongs_to` a User? doesn't sound right. After all Friend is just another User. This situation requires me to create a medium class: Friendship that both belongs to User and Friend and also doesn't violate the rule : Friend is an User. Luckily, thanks to ActiveRecord, there is an attribute call `:class_name` to assign `User class` for Friend class:
+Since **User** and **Friend** are both belongs to **User** class, they can't have a `has_many` or `belongs_to` relationship as usual.  **User** `has_many` **Friends**, sounds good. But **Friend** `has_many` **Users**? or `belongs_to` a **User**? doesn't sound right. After all **Friend** is just another **User**. This situation requires me to create a medium class: **Friendship** that both belongs to **User** and **Friend** and also doesn't violate the rule : **Friend** is an **User**. Luckily, thanks to **ActiveRecord**, there is an attribute call `:class_name` to assign `User class` for **Friend** class:
 
 ```ruby
 class User < ActiveRecord::Base
@@ -32,7 +32,7 @@ class Friendship < ActiveRecord::Base
 end
 ```
 
-Things are getting much easier now. I can just work on it like how I work with regular ActiveRecord Relation. 
+Things are getting much easier now. I can just work on it like how I work with regular **ActiveRecord::Relation**. 
 But as things go along, more and more problems come along as well. 
 
 ```ruby
@@ -45,7 +45,7 @@ But as things go along, more and more problems come along as well.
 ```
 
 
-Message belongs to a User and a Friend, hence it has a `user_id` and a `friend_id`.  `user_id` is who composed the message, `friend_id` is who the message was sent to. But `friend_id` is just another `user_id`. How can a message has 2 user_ids. This cause a problem that only `message_test.user` has this message in record :
+Message belongs to a **User** and a **Friend**, hence it has a `user_id` and a `friend_id`.  `user_id` is who composed the message, `friend_id` is who the message was sent to. But `friend_id` is just another `user_id`. How can a message has **2 user_ids**. This cause a problem that only `message_test.user` has this message in record :
 
 ```ruby
 >> message_test.user
@@ -64,7 +64,7 @@ Message belongs to a User and a Friend, hence it has a `user_id` and a `friend_i
 +----+----------------------------------------+---------+-----------+
 ```
 
-but the friend, with id = 2 won't have it 
+but the friend, with id = 2 **won't have it **
 
 ```ruby
 >> message_test.friend
@@ -79,9 +79,8 @@ but the friend, with id = 2 won't have it
 | id | content                                                                                    | user_id | friend_id |
 +----+--------------------------------------------------------------------------------------------+---------+-----------+
 | 4  | Damn it. It is raining tomorrow. It ruins my plan man                                      | 2       | 7         |
-| 5  | Wanna go biking on Sunday? We better go before it gets cold | 2       | 8         |
+| 5  | Wanna go biking this Sunday? The weather is mad nice tho. We better go before it gets cold | 2       | 8         |
 +----+--------------------------------------------------------------------------------------------+---------+-----------+
-
 
 >> message_test.friend.messages.find_by_id(message_test.id)
 => nil
@@ -112,7 +111,7 @@ messages_from_friends = Message.all.select {|m| m.friend == current_user}
 
 ![](https://i.imgur.com/MfwFp6t.png?1)
 
-Similarly, Friendship belongs to a User and a Friend (another User), a `Friendship.new` can only have 1 user_id and 1 friend_id, not 2 user_ids. 
+Similarly, **Friendship** belongs to a **User** and a **Friend** (another **User**), a `Friendship.new` can only have 1 **user_id** and **1 friend_id**, not **2 user_ids**. 
 
 Same problem arises, when I make friend with another user:
 
@@ -125,7 +124,7 @@ end
 				
 only my friend_list has him, his friend_list doesn't has me
 
-For 2 persons both become friend with each other at the same time, I need to make 2 instance of Friendship class:
+For 2 persons both become friend with each other at the same time, I need to make 2 instance of **Friendship** class:
 
 ```ruby
 post '/users/create_friends' do
