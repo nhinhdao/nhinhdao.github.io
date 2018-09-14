@@ -1,12 +1,12 @@
 ---
 layout: post
 title:      "Sinatra Social Web Application"
-date:       2018-09-14 01:41:15 +0000
+date:       2018-09-13 21:41:15 -0400
 permalink:  sinatra_social_web_application
 ---
 
 
-![Home Page](https://i.imgur.com/5MSyFSh.png?1)
+![Home Page](https://i.imgur.com/A6WoZas.png?1)
 
 Building a simple sinatra web application isn't hard but it sure will take times and effort to end up having a site that is interactive and informative.
 
@@ -35,7 +35,7 @@ end
 Things are getting much easier now. I can just work on it like how I work with regular ActiveRecord Relation. 
 But as things go along, more and more problems come along as well. 
 
-```
+```ruby
 >> message_test = Message.all.first
 +----+----------------------------------------+---------+-----------+
 | id | content                                | user_id | friend_id |
@@ -47,7 +47,7 @@ But as things go along, more and more problems come along as well.
 
 Message belongs to a User and a Friend, hence it has a `user_id` and a `friend_id`. `user_id` is who composed the message, friend_id is who the message was sent to. But friend_id` is just another `user_id`. How can a message has 2 user_ids. This cause a problem that only `message_test.user` has this message in record :
 
-```
+```ruby
 >> message_test.user
 +----+-------------+-----------------------+--------------------------------------------------------------+
 | id | username    | email                 | password_digest                                              |
@@ -66,7 +66,7 @@ Message belongs to a User and a Friend, hence it has a `user_id` and a `friend_i
 
 but the friend, with id = 2 won't have it 
 
-```
+```ruby
 >> message_test.friend
 +----+-------------+-----------------------+--------------------------------------------------------------+
 | id | username    | email                 | password_digest                                              |
@@ -103,13 +103,13 @@ To get the messages that was sent to current user
 
 `messages_from_friends = Message.all.select {|m| m.friend == current_user}`
 
-![](https://i.imgur.com/hQtvWGn.png?1)
+![](https://i.imgur.com/MfwFp6t.png?1)
 
 Similarly, Friendship belongs to a User and a Friend (another User), a `Friendship.new` can only have 1 user_id and 1 friend_id, not 2 user_ids. 
 
 Same problem arises, when I make friend with another user:
 
-```
+```ruby
  params[:friends].each do |i|
 				a = User.find_by_id(i)
 				Friendship.create(user_id: current_user.id, friend_id: a.id)
@@ -120,7 +120,7 @@ only my friend_list has him, his friend_list doesn't has me
 
 For 2 persons both become friend with each other at the same time, I need to make 2 instance of Friendship class:
 
-```
+```ruby
 post '/users/create_friends' do
     params[:friends].each do |i|
 				a = User.find_by_id(i)
@@ -132,7 +132,7 @@ post '/users/create_friends' do
 end
 ```
 
-![Friend_list](https://i.imgur.com/zKD1qaz.png?1)
+![Friend_list](https://i.imgur.com/2hITe8a.png?1)
 
 I think you would have better understanding on how this kind of ActiveRecord::Relation works if you look into my code. 
 Feel free to clone my github repository at: https://github.com/nhinhdao/sinatra-messages-transfer-project
