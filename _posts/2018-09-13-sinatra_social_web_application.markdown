@@ -8,14 +8,14 @@ permalink:  sinatra_social_web_application
 
 ![Home Page](https://i.imgur.com/A6WoZas.png?2)
 
-Building a simple **sinatra web application** isn't hard but it sure will take times and effort to end up having a site that is interactive and informative.
+Building a simple **sinatra web application** isn't hard but it sure will take time and effort to end up having a site that is interactive and informative.
 
 I want to build a website that mimics the connection between **users** (as **user** and **friends**) and their messages (I hope to make *real-time conversation* soon). 
 
-From the few first line of code, I already bumped into some headache. Think about relationship between them:
+From the few first lines of code, I already bumped into some headache. Think about relationship between them:
 **User** `has_many` **Friends**, sounds good. But **Friend** `has_many` **Users**? or `belongs_to` a **User**? doesn't sound right. After all **Friend** is just another **User**. 
 
-Since **User** and **Friend** are both belongs to **User** class, they can't have a `has_many` or `belongs_to` relationship as usual.  This situation requires me to create a medium class: **Friendship** that both belongs to **User** and **Friend** and also doesn't violate the rule : **Friend** is an **User**. Luckily, thanks to **ActiveRecord**, there is an attribute call `:class_name` to assign `User class` for **Friend** class:
+Since **User** and **Friend** both belong to **User** class, they can't have a `has_many` or `belongs_to` relationship as usual.  This situation requires me to create a medium class: **Friendship** that both belongs to **User** and **Friend** and also doesn't violate the rule : **Friend** is an **User**. Luckily, thanks to **ActiveRecord**, there is an attribute call `:class_name` to assign `User class` for **Friend** class:
 
 ```ruby
 class User < ActiveRecord::Base
@@ -48,7 +48,7 @@ But as things go along, more and more problems come along as well.
 ```
 
 
-Message belongs to a **User** and a **Friend**, hence it has a `user_id` and a `friend_id`.  `user_id` is who composed the message, `friend_id` is who the message was sent to. But `friend_id` is just another `user_id`. How can a message has **2 user_ids**. This cause a problem that only `message_test.user` has this message in record :
+Message belongs to a **User** and a **Friend**, hence it has a `user_id` and a `friend_id`.  `user_id` is who composed the message, `friend_id` is who the message was sent to. But `friend_id` is just another `user_id`. How can a message has **2 user_ids**. This causes a problem that only `message_test.user` has this message in record :
 
 ```ruby
 >> message_test.user
@@ -97,7 +97,7 @@ But it is not the end of the world.
 
 With a few thoughts, I can just manipulate it as any other ruby arrays/objects. Remember, all messages are stored in Message.all array.
 
-To get the messages that was composed by current user
+To get the messages that were composed by current user
 
 ```ruby 
 my_messages = current_user.messages
@@ -108,7 +108,7 @@ or
 my_messages = Message.all.select {|m| m.user == current_user}
 ```
 
-To get the messages that was sent to current user
+To get the messages that were sent to current user
 
 ```ruby 
 messages_from_friends = Message.all.select {|m| m.friend == current_user}
@@ -129,7 +129,7 @@ end
 				
 only my friend_list has him, his friend_list doesn't has me
 
-For 2 people both become friend with each other at the same time, I need to make 2 instance of **Friendship** class:
+For 2 people both become friend with each other at the same time, I need to make 2 instances of **Friendship** class:
 
 ```ruby
 post '/users/create_friends' do
@@ -147,7 +147,7 @@ end
 
 Those big tangles were combed but there are also lots of minor problems as you all face when you program. 
 
-I think all we need to do is give it some times and do some research, they will become fixable.
+I think all we need to do is give it some times and do some researchs, they will become fixable.
 
 If you are interested in how my first web application works, feel free to clone my github repository at: https://github.com/nhinhdao/sinatra-messages-transfer-project
 
