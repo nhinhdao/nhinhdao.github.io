@@ -149,7 +149,7 @@ Those big tangles were combed but there are also lots of minor problems as you a
 
 I think all we need to do is give it some times and do some researchs, they will become fixable.
 
-If you are interested in how my first web application works, feel free to clone my github repository at: https://github.com/nhinhdao/sinatra-messages-transfer-project
+If you are interested in how my first web application works, feel free to clone my github repository at: [Sinatra Messages Transfer Project](https://github.com/nhinhdao/sinatra-messages-transfer-project)
 
 Remember to do as instruction in README.md. 
 
