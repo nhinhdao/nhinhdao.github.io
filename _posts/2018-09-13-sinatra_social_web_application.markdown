@@ -10,9 +10,12 @@ permalink:  sinatra_social_web_application
 
 Building a simple **sinatra web application** isn't hard but it sure will take times and effort to end up having a site that is interactive and informative.
 
-I want to build a website that mimics the connection between **users** (as **user** and **friends**) and their messages (not conversation. The site is static, unfortulately). 
+I want to build a website that mimics the connection between **users** (as **user** and **friends**) and their messages (I hope to make *real-time conversation* soon). 
 
-Since **User** and **Friend** are both belongs to **User** class, they can't have a `has_many` or `belongs_to` relationship as usual.  **User** `has_many` **Friends**, sounds good. But **Friend** `has_many` **Users**? or `belongs_to` a **User**? doesn't sound right. After all **Friend** is just another **User**. This situation requires me to create a medium class: **Friendship** that both belongs to **User** and **Friend** and also doesn't violate the rule : **Friend** is an **User**. Luckily, thanks to **ActiveRecord**, there is an attribute call `:class_name` to assign `User class` for **Friend** class:
+From the few first line of code, I already bumped into some headache. Think about relationship between them:
+**User** `has_many` **Friends**, sounds good. But **Friend** `has_many` **Users**? or `belongs_to` a **User**? doesn't sound right. After all **Friend** is just another **User**. 
+
+Since **User** and **Friend** are both belongs to **User** class, they can't have a `has_many` or `belongs_to` relationship as usual.  This situation requires me to create a medium class: **Friendship** that both belongs to **User** and **Friend** and also doesn't violate the rule : **Friend** is an **User**. Luckily, thanks to **ActiveRecord**, there is an attribute call `:class_name` to assign `User class` for **Friend** class:
 
 ```ruby
 class User < ActiveRecord::Base
@@ -32,7 +35,7 @@ class Friendship < ActiveRecord::Base
 end
 ```
 
-Things are getting much easier now. I can just work on it like how I work with regular **ActiveRecord::Relation**. 
+Things are getting easier. I can just work on it like how I work with regular Ruby **ActiveRecord::Relation**. 
 But as things go along, more and more problems come along as well. 
 
 ```ruby
@@ -88,9 +91,11 @@ but the friend, with id = 2 **won't have it **
 
 User's message.all array only contains the messages were composed by them, not the messages were sent to them.
 
-This is a fact that we have to except as we want to use only one mother class to build more than 1 other classes. 
+This is what I have to deal with as I want to use only one mother class to build more than 1 other classes. 
+
 But it is not the end of the world.
-We can just manipulate it as any other ruby arrays/objects. Remember, all messages are stored in Message.all array.
+
+With a few thoughts, I can just manipulate it as any other ruby arrays/objects. Remember, all messages are stored in Message.all array.
 
 To get the messages that was composed by current user
 
@@ -111,7 +116,7 @@ messages_from_friends = Message.all.select {|m| m.friend == current_user}
 
 ![](https://i.imgur.com/MfwFp6t.png?1)
 
-Similarly, **Friendship** belongs to a **User** and a **Friend** (another **User**), a `Friendship.new` can only have 1 **user_id** and **1 friend_id**, not **2 user_ids**. 
+Similarly, **Friendship** belongs to a **User** and a **Friend** (another **User**), a `Friendship.new` can only have 1 **user_id** and 1 **friend_id**, not **2 user_ids**. 
 
 Same problem arises, when I make friend with another user:
 
@@ -124,7 +129,7 @@ end
 				
 only my friend_list has him, his friend_list doesn't has me
 
-For 2 persons both become friend with each other at the same time, I need to make 2 instance of **Friendship** class:
+For 2 people both become friend with each other at the same time, I need to make 2 instance of **Friendship** class:
 
 ```ruby
 post '/users/create_friends' do
@@ -140,11 +145,14 @@ end
 
 ![Friend_list](https://i.imgur.com/2hITe8a.png?1)
 
-I think you would have better understanding on how this kind of ActiveRecord::Relation works if you look into my code. 
-Feel free to clone my github repository at: https://github.com/nhinhdao/sinatra-messages-transfer-project
+Those big tangles were combed but there are also lots of minor problems as you all face when you program. 
+
+I think all we need to do is give it some times and do some research, they will become fixable.
+
+If you are interested in how my first web application works, feel free to clone my github repository at: https://github.com/nhinhdao/sinatra-messages-transfer-project
 
 Remember to do as instruction in README.md. 
 
-I would love to hear feedback and suggestion from all of you on my first sinatra site.
+I would love to hear feedback any suggestion from all of you on my first sinatra site.
 
 Thanks all
