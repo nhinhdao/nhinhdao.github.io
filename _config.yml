@@ -1,9 +1,9 @@
 # Site settings
-author: nhinhdao
+author: drobin
 title: Robin vs Ruby 
 header-img: img/home-bg.png
 email: nhinhdao.vn@gmail.com
-copyright_name: nhinhdao
+copyright_name: drobin
 description: > # this means to ignore newlines until "baseurl:"
   Coding issues, thoughts and solutions of a Rubyist
 baseurl: "" # the subpath of your site, e.g. /blog
