@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "The Message Book"
-date:       2018-11-20 23:12:46 +0000
+date:       2018-11-20 18:12:47 -0500
 permalink:  the_message_book
 ---
 
@@ -17,7 +17,7 @@ This web application is made to run on your local machine [http://localhost:3000
 For more details about this app, please review my sinatra-messages-transfer-project post. 
 
 Here I will upload some pictures to show you how my application looks like.
-
+![User Log In/Sign Up page](https://i.imgur.com/sDZLTun.png)
 User Log In/Sign Up page
 
 Home page
