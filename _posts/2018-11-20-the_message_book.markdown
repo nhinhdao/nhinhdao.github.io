@@ -10,7 +10,7 @@ I don't know why I use this ***"fancy"*** name instead of **Message Transfer Web
 
 Before talking about the highlights, I would like to introduce this project again.
 
-This is not a new project, instead is an upgraded version of the [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) I have done last month. It is a web application acting as a social app where **user** can **make friends**, **send messages** to each other. This version, however, I added **posts** and some other functions and was buildt in **Ruby on Rails** so it is the same idea but has mostly different codes and logics behind. So, let's get started.
+This is not a new project, instead is an upgraded version of the [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) I have done last month. It is a web application acting as a social app where **user** can **make friends**, **send messages** to each other. This version, however, I added **posts** and some other functions and was built in **Ruby on Rails** so it is the same idea but has mostly different codes and logics behind. So, let's get started.
 
 This web application is made to run on your local machine [http://localhost:3000](#) so it is half static, half dynamic. It can change **connections** between **users** and their activities based on their choices but it is not an online site like **Facebook**, **Instagram**, **Twitter**... All changes happen to one **user** (local machine) at a time and is stored to his/her local database while the application is running.  I hope to make it go online soon (I really do want to accomplish it)
 
@@ -29,15 +29,15 @@ Here are some pictures of how my application looks like.
 > Friends list
 
 
-For major details and logics behind this app, please visit my github project page **rails-messages-transfer-project** [rails-messages-transfer-project](rails-messages-transfer-project) or review my [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) post. 
+For major details and logics behind this app, please visit my github project page [rails-messages-transfer-project](rails-messages-transfer-project) or review my [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) post. 
 
 I want to highlight some of the new features and the useful gems I've used in this project.
 
-First of all, **user** can now choose to log in through a third website. Because it is a simple web application, I limit  options to only using **Facebook**. Basically, together with sign up as a new **user** which means more account to maintain, one can just log in through **facebook** and **facebook** will send the **token** uniquely assigns to each account back to the web application. This token is then stored in the web application database and is used to set up/maintain user's informations.
+First of all, **user** can now choose to log in through a third website. Because it is a simple web application, I limit  user to only using **Facebook**. Basically, together with signing up as a new **user** which means more accounts to maintain, one can just log in through **facebook** and **facebook** will send the **token** uniquely assigns to each account back to the web application. This token is then stored in the web application database and is used to set up/maintain user's informations.
 
 For the steps to install needed gems and intergrate **facebook omniauth** to a rails project, please visit [omniauth-facebook](https://github.com/mkdynamic/omniauth-facebook).
 
-When a user provide his/her informations to log in through **facebook**, behind the scene **facebook** will send the **token** back to the web application by mapping the action to the route provided in `routes.rb` file inside the project: `get '/auth/facebook/callback' => 'sessions#create'`
+When a user provide his/her informations to log in through **facebook**, behind the scene **facebook** will send the **token** back to the web application by mapping the action to the route provided in `routes.rb` file: `get '/auth/facebook/callback' => 'sessions#create'`
 
 ```ruby
 def create
@@ -67,7 +67,7 @@ def create
   end
 ```
 
-With regular log in, the controller will check if the provided credentials matches with the user's stored data to log them in or throw an error if not. **Facebook login**, on the other hand, the application won't do anything until **user** logs in successfully through **facebook**. Application only deals with the **token** that **facebook** sends back, not how **user** log into **facebook**. If **user** log in with **facebook** successfully, their profile's information will be pulls from **facebook** to replace the missing credentials requires: username, image, email,...
+With **regular log in**, the controller will check if the provided credentials matches with the user's stored data to log them in or throw an error if not. **Facebook login**, on the other hand, the application won't do anything until **user** logs in successfully through **facebook**. Application only deals with the **token** that **facebook** sends back, not how **user** log into **facebook**. If they fail to log in, bring them back to the log in page so they can try again or sign up for a new account. If **user** log in with **facebook** successfully, their profile's information will be pulls from **facebook** to replace the missing credentials requires: **username**, **image**, **email**,...
 
 In order to do that, a **method** provided  by the omiauth provider is added to **sessions_controller.rb** file:
 ```
@@ -130,7 +130,10 @@ or
 ```
 
 
-> identicon ![identicon](https://i.imgur.com/M9rdvQV.png?1)     wavatar ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    default  ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
+>  identicon ![identicon](https://i.imgur.com/M9rdvQV.png?1)     
+>  wavatar ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        
+>  monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    
+>  default  ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
 
 One more useful gem for those who wants to make their pages readable if they have long content pages is [will_paginate](https://github.com/mislav/will_paginate). 
 
