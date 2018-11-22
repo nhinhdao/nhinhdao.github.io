@@ -130,10 +130,10 @@ or
 ```
 
 
->  identicon ![identicon](https://i.imgur.com/M9rdvQV.png?1)     
->  wavatar ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        
->  monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    
->  default  ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
+identicon ![identicon](https://i.imgur.com/M9rdvQV.png?1)     
+wavatar ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        
+monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    
+default  ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
 
 One more useful gem for those who wants to make their pages readable if they have long content pages is [will_paginate](https://github.com/mislav/will_paginate). 
 
