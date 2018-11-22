@@ -6,26 +6,159 @@ permalink:  the_message_book
 ---
 
 
-I don't know why I use this*** "fancy"*** name instead of **Message Transfer Web Application** or literally **rails-messages-transfer-project** as its name on my github. At least it does imply what it expresses. Sorry **The Face Book** for this somewhat similarity.
+I don't know why I use this ***"fancy"*** name instead of **Message Transfer Web Application** or literally **rails-messages-transfer-project** as its name on my github. Well, at least it does imply its job. Sorry **The Face Book** for this somewhat similarity.
 
 Before talking about the highlights, I would like to introduce this project again.
 
-This is not a new project, instead is an upgraded version of the sinatra-messages-transfer-project I have done last month. It is a web application mimicking a social app where user can make friends, send messages to each other. This version, however, I added posts and some other functions and was builded in Ruby on Rails so it is the same idea but has mostly different codes and logics behind. So, let's get started.
+This is not a new project, instead is an upgraded version of the [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) I have done last month. It is a web application acting as a social app where **user** can **make friends**, **send messages** to each other. This version, however, I added **posts** and some other functions and was buildt in **Ruby on Rails** so it is the same idea but has mostly different codes and logics behind. So, let's get started.
 
-This web application is made to run on your local machine [http://localhost:3000](#) so it is half static, half dynamic. It can change connections between users and their activities based on their choices but it is not an online-parellel interactive relationship like Facebook, Instagram, Twitter... All changes happen to one user (local machine) at a time and is stored to his/her local database while the application is running.  I hope to make it go online soon (I want to accomplish it, I really do)
+This web application is made to run on your local machine [http://localhost:3000](#) so it is half static, half dynamic. It can change **connections** between **users** and their activities based on their choices but it is not an online site like **Facebook**, **Instagram**, **Twitter**... All changes happen to one **user** (local machine) at a time and is stored to his/her local database while the application is running.  I hope to make it go online soon (I really do want to accomplish it)
 
-For more details about this app, please review my sinatra-messages-transfer-project post. 
+Here are some pictures of how my application looks like.
 
-Here I will upload some pictures to show you how my application looks like.
 ![User Log In/Sign Up page](https://i.imgur.com/sDZLTun.png)
-User Log In/Sign Up page
+> User Log In/Sign Up page
 
-Home page
+![Home Page](https://i.imgur.com/DlGGbQP.png)
+> Home page
 
-User's profile page
+![User's messages page](https://i.imgur.com/JE6G5UV.png)
+> User's messages page
 
-User's messages page
+![Friends list](https://i.imgur.com/V6rPcrX.png!)
+> Friends list
 
-Friends list
 
+For major details and logics behind this app, please visit my github project page **rails-messages-transfer-project** [rails-messages-transfer-project](rails-messages-transfer-project) or review my [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) post. 
+
+I want to highlight some of the new features and the useful gems I've used in this project.
+
+First of all, **user** can now choose to log in through a third website. Because it is a simple web application, I limit  options to only using **Facebook**. Basically, together with sign up as a new **user** which means more account to maintain, one can just log in through **facebook** and **facebook** will send the **token** uniquely assigns to each account back to the web application. This token is then stored in the web application database and is used to set up/maintain user's informations.
+
+For the steps to install needed gems and intergrate **facebook omniauth** to a rails project, please visit [omniauth-facebook](https://github.com/mkdynamic/omniauth-facebook).
+
+When a user provide his/her informations to log in through **facebook**, behind the scene **facebook** will send the **token** back to the web application by mapping the action to the route provided in `routes.rb` file inside the project: `get '/auth/facebook/callback' => 'sessions#create'`
+
+```ruby
+def create
+    if params[:username].present? && params[:password].present? #user logged in through form provided in the home page
+      @user = User.find_by(:username => params[:username])
+      if @user && @user.authenticate(params[:password])
+        session[:current_user_id] = @user.id
+        flash[:message] = "Welcome back, #{@user.username}"
+        redirect_to '/'
+      else
+        flash[:notice] = "Hmm, We can't find you. Sorry, please try again!"
+        render :new
+      end
+    elsif request.env['omniauth.auth'].present? #user logged in through facebook
+      @user = User.find_or_create_by(uid: auth['uid']) do |u|
+        u.username = auth['info']['name']
+        u.email = auth['info']['email']
+        u.image = auth['info']['image']
+      end
+      session[:current_user_id] = @user.id
+      flash[:message] = "Thank you for checking in, #{@user.username}"
+      redirect_to '/'
+    else #missing or wrong log in identities
+      flash[:notice] = "Hmm, We can't find you. Sorry, please try again!"
+      render :new
+    end
+  end
+```
+
+With regular log in, the controller will check if the provided credentials matches with the user's stored data to log them in or throw an error if not. **Facebook login**, on the other hand, the application won't do anything until **user** logs in successfully through **facebook**. Application only deals with the **token** that **facebook** sends back, not how **user** log into **facebook**. If **user** log in with **facebook** successfully, their profile's information will be pulls from **facebook** to replace the missing credentials requires: username, image, email,...
+
+In order to do that, a **method** provided  by the omiauth provider is added to **sessions_controller.rb** file:
+```
+def auth
+    request.env['omniauth.auth']
+  end
+```
+
+Then getting user's profile is pretty straightforward:
+
+```
+@user = User.find_or_create_by(uid: auth['uid']) do |u|
+        u.username = auth['info']['name']
+        u.email = auth['info']['email']
+        u.image = auth['info']['image']
+      end
+```
+
+Next one, I want to mention is the use of **Faker** gem to generate seed files. For a local web application, there won't by any **users**, **posts**, **messages** or **activities** until one is created so it is necessary to create some data so a new user will have better experience.
+
+**Faker** gem is a very handy one to do this job. Please check out [stympy/faker](https://github.com/stympy/faker) to install it into your project.
+
+Here is how my **seeds.rb** file looks like:
+
+```ruby
+10.times do |account|
+  username = Faker::Internet.unique.username
+  email = Faker::Internet.unique.email(username)
+  image = Gravatar.new("#{email}").image_url + '?d=wavatar'
+  password = 'nhinh12345'
+  User.create(username: username, email: email, image: image, password: password, password_confirmation: password)
+end
+
+
+User.all.each do |user|
+  pcontent = Faker::GameOfThrones.quote
+  user.posts.create(content: pcontent)
+end
+
+
+friends = User.all[1..5]
+for fr in friends do
+  mcontent1 = Faker::Community.quotes
+  mcontent2 = Faker::SiliconValley.quote
+end
+```
+
+**Faker** gem helps you generate **username**, **email**, **quote**, **address**, **telephone**... mostly everything you need to identify an object. It will save you tons of time on typing, thinking what unique names and emails to use...
+
+Beside **Faker** gem, I added **Gravatar** to generate **avatar** for **user**, which make your site looks more lively and closer to a social application. Install [gravatar](https://github.com/sinisterchipmunk/gravatar) is simple.
+
+You can choose **type of avatar** by added  `+ '?d=wavatar'` at the end of the line of code:
+
+```ruby
+user.image = Gravatar.new("#{email}").image_url + '?d=wavatar'
+
+or 
+
+<img src="<%= Gravatar.new("#{email}").image_url + '?d=wavatar' %>" style="width: 80px">
+```
+
+
+> identicon ![identicon](https://i.imgur.com/M9rdvQV.png?1)     wavatar ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    default  ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
+
+One more useful gem for those who wants to make their pages readable if they have long content pages is [will_paginate](https://github.com/mislav/will_paginate). 
+
+Just need to add **gem 'will-paginate'** to your **gemfile**, then decide how many item you want to display in one page then simply paste it into your code:
+
+```ruby
+@feeds = Post.paginate(page: params[:page], per_page: 4)
+```
+
+and add <%= will_paginate @feeds %> to your erb view file. Easy peasy.
+
+![will-paginate](https://i.imgur.com/CzaHCD1.png)
+
+Lastly, a very impotant gem I want to add here if you are heavily work with **sql** and **model**. Please please please add **gem 'hirb'** to your **gemfile**. Then in the console, type in **'Hirb.enable'**. Now look how much different it makes
+
+> before
+
+![before Hirb](https://i.imgur.com/G9Vh0N5.png)
+
+> after
+
+![after Hirb](https://i.imgur.com/9qqNjow.png)
+
+Wow, how much more clear, readable and understandable form 1 extra line of code. Thanks [Gabriel Horner](https://rubygems.org/profiles/cldwalker) for this awesome gem. I always got a hard time reading those tangling lines to see all the **emails**, **usernames**...  but with **Hirb** everything is clearly displayed in one table. It is so much faster than writing extra codes to grab them down the line. 
+
+Hmm, I think that's good for now. All highlights of my project are explained briefly here to you. Thank you for going this far. I will constantly looking for **helpful gems** and **meaningful ideas** to build more and more projects. Exploring the **Ruby on Rails** world is fun and challenging. I hope you find fun with this language too.
+
+Have a productive day, friends!
+
+Stay tuned.
 
