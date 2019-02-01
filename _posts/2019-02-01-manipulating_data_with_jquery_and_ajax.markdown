@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Manipulating Data With Jquery and Ajax"
-date:       2019-02-01 17:21:36 +0000
+date:       2019-02-01 12:21:37 -0500
 permalink:  manipulating_data_with_jquery_and_ajax
 ---
 
