@@ -133,8 +133,7 @@ function editpost() {
 To **delete a post**:
 
 ```ruby
-//Handle DELETING A POST request 
-  $('a.delete_post').click(function (event) {
+ $('a.delete_post').click(function (event) {
     event.preventDefault();
     event.stopPropagation();
     let path = this;
