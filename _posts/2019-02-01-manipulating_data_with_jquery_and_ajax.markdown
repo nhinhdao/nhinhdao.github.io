@@ -130,7 +130,7 @@ function editpost() {
 
 ![Edit a post](https://i.imgur.com/8iYhV4z.gif)
 
-To** delete a post**:
+To **delete a post**:
 
 ```ruby
 //Handle DELETING A POST request 
