@@ -133,7 +133,7 @@ function editpost() {
 To **delete a post**:
 
 ```ruby
- $('a.delete_post').click(function (event) {
+$('a.delete_post').click(function (event) {
     event.preventDefault();
     event.stopPropagation();
     let path = this;
@@ -145,7 +145,7 @@ To **delete a post**:
           }
 			})
     })
-	```
+```
 	
 ![Delete Post](https://i.imgur.com/dA6TxoZ.gif)
 	
