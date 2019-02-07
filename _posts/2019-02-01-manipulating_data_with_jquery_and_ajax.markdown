@@ -1,10 +1,13 @@
 ---
 layout: post
-title:      "Manipulating Data With Jquery and Ajax"
+title:      "Manipulate Data With Jquery and Ajax"
 date:       2019-02-01 12:21:37 -0500
 permalink:  manipulating_data_with_jquery_and_ajax
 ---
 
+
+![Wetext](https://i.imgur.com/ueatOdc.png)
+> Wetext - Social Web Application
 
 **Rails application** has a great and convenient way to route and render methods for each action: **Get, Post, Patch, Delete**. New message is routed with `"/messages/new"`, handled by method `"new"` in **MessagesController** and then rendered with `"new.html.erb"` templates. These same routines go for other actions as well. If you wish to render different temples, or give a route different name... all you need to do is to specify those actions in **routes.rb** file on your Rails application
 
