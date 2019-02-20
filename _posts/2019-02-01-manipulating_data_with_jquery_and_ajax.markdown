@@ -28,7 +28,7 @@ To get a better idea of what is **AJAX** and **JQUERY** and how to use them, ple
 * [AJAX](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX)
 * [JQUERY](https://jquery.com/)
 
-Basically,** AJAX** (***Asynchronous JavaScript And XML***) is a set of **Web development techniques** that are able to make quick, incremental updates to the user interface without reloading the entire browser page, while **JQUERY** is a ***Javascript library*** widely use to target elements, handle events, animations... These two works very well together, **Jquery** provides several methods for **AJAX** functionalities to develop dynamic and powerful web applications. Oh hey, **AJAX** is now mainly deal with **JSON** so please look more into how to get the respond in **JSON** and all the workarounds with it.
+Basically, **AJAX** (***Asynchronous JavaScript And XML***) is a set of **Web development techniques** that are able to make quick, incremental updates to the user interface without reloading the entire browser page, while **JQUERY** is a ***Javascript library*** widely use to target elements, handle events, animations... These two works very well together, **Jquery** provides several methods for **AJAX** functionalities to develop dynamic and powerful web applications. Oh hey, **AJAX** is now mainly deal with **JSON** so please look more into how to get the respond in **JSON** and all the workarounds with it.
 
 Today subject is to talk about how we handle 4 main actions: **Get, Post, Patch, Delete** in any Rails app with the help of **Jquery and Ajax**
 
