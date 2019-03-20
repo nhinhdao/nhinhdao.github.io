@@ -33,7 +33,7 @@ If you want to display events in different colors like me, install [randomcolor]
 
 Then in your react component, import React Calendar Timeline and its dependencies:
 
-```javascript
+```
 import Timeline from 'new-react-calendar-timeline/lib';
 import moment from 'moment';
 import randomColor from 'randomcolor';
@@ -43,7 +43,7 @@ Now, you are good to go.
 
 A basic event includes 2 parts: **group** and **item**. **Group** is what you see in the left panel (sometimes on the right hand side or both) and **item** is what you see inside the calendar:
 
-```javascript
+```
 const groups = [
   {id: 1, title: 'group 1'},
   {id: 2, title: 'group 2'}
@@ -59,7 +59,9 @@ const items = [
 
 In my project, I fetched the project data from [Rails API back-end](https://github.com/nhinhdao/project-management-railsAPI-backend):
 
-```javascript
+```
+//AllProject component
+
 class AllProjects extends Component {
   state = { projects: []}
 
@@ -110,10 +112,9 @@ class ProjectTimeline extends Component {
     return(
       <React.Fragment>
         <div>
-          <Button size='small' color='grey'>Projects: {this.props.projects.length}</Button> 
-					<Link to={`/newproject`}><Button size='small' color='teal'>Add New Project</Button></Link>
+          <Button size='small' color='grey'>Projects: {this.props.projects.length}</Button> <Link to={`/newproject`}><Button size='small' color='teal'>Add New Project</Button></Link>
         </div>
-				<hr/>
+        <hr/>
         <Timeline groups={groups}
         items={items}
         sidebarContent={<h3>Project</h3>}
@@ -123,8 +124,8 @@ class ProjectTimeline extends Component {
         defaultTimeEnd={moment('2019-04-08')}
         lineHeight={35}
         />
-				</React.Fragment>
-				)
+      </React.Fragment>
+    )
   }
 }
 ```
@@ -159,13 +160,12 @@ The nice  feature (also annoying sometimes) of react is that if you render child
 
 Remember itemrenderer function of ProjectTimeline component?
 
-```javascript
+```
   itemRenderer = ({ item }) => {
     return (
-    <Link to={`/projects/${item.id}`}>
-		<div onClick={this.handleOpen} style={{backgroundColor: item.bgColor, color: 'black'}}>{item.title}</div>
-		</Link>
+    <Link to={`/projects/${item.id}`}><div onClick={this.handleOpen} style={{backgroundColor: item.bgColor, color: 'black'}}>{item.title}</div></Link>
     )
+  }
 ```
 
 When users click on a project inside **Calendar**, they are redirected to **ProjectPage** (`Link to={`/projects/${item.id}`}`).
@@ -173,7 +173,7 @@ When users click on a project inside **Calendar**, they are redirected to **Proj
 ```
 //AllProject component
     <Route path="/projects" component={AllProjects} />
-		<Route path="/projects/:projectID" render={routerProps => <ProjectPage projects={this.state.projects} {...routerProps} />} />
+		<Route path="/projects/:projectID" render={routerProps => <ProjectPage projects={this.state.projects} {...routerProps} />}/>
 ```
 
 ```
