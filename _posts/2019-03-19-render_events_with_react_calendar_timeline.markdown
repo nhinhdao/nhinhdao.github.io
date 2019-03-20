@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Render Events with React Calendar Timeline"
-date:       2019-03-20 00:05:08 +0000
+date:       2019-03-19 20:05:09 -0400
 permalink:  render_events_with_react_calendar_timeline
 ---
 
@@ -57,7 +57,7 @@ const items = [
 
 ![React Calendar Timeline](https://i.imgur.com/q3zwSTR.jpg)
 
-In my project, I fetch the project data from [Rails API back-end](https://github.com/nhinhdao/project-management-railsAPI-backend):
+In my project, I fetched the project data from [Rails API back-end](https://github.com/nhinhdao/project-management-railsAPI-backend):
 
 ```javascript
 class AllProjects extends Component {
@@ -76,7 +76,7 @@ class AllProjects extends Component {
         <ProjectTimeline projects={this.state.projects} />
         <Route path="/projects/:projectID" render={routerProps => <ProjectPage projects={this.state.projects} {...routerProps} />}/>
       </React.Fragment>
-    )
+			)
   }
 }
 ```
@@ -108,18 +108,19 @@ class ProjectTimeline extends Component {
     return(
       <React.Fragment>
         <div>
-          <Button size='small' color='grey'>Projects: {this.props.projects.length}</Button> <Link to={`/newproject`}><Button size='small' color='teal'>Add New Project</Button></Link>
+          <Button size='small' color='grey'>Projects: {this.props.projects.length}</Button> 
+					<Link to={`/newproject`}><Button size='small' color='teal'>Add New Project</Button></Link>
         </div>
         <hr/>
         <Timeline groups={groups}
-        items={items}
-        sidebarContent={<h3>Project</h3>}
-        itemRenderer={this.itemRenderer}
-        itemHeightRatio={0.7}
-        defaultTimeStart={moment('2019-03-08')}
-        defaultTimeEnd={moment('2019-04-08')}
-        lineHeight={35}
-        />
+				items={items}
+				sidebarContent={<h3>Project</h3>}
+				itemRenderer={this.itemRenderer}
+				itemHeightRatio={0.7}
+				defaultTimeStart={moment('2019-03-08')}
+				defaultTimeEnd={moment('2019-04-08')}
+				lineHeight={35}
+				/>
       </React.Fragment>
     )
   }
@@ -150,25 +151,27 @@ div.react-calendar-timeline .rct-items .rct-item{
 }
 ```
 
-Now, if you click on each project, it won't render or display anything. To display each project, I used [semantic iu modal](https://react.semantic-ui.com/modules/modal/):
+Now, if you click on each project, it won't render or display anything. To display each project, I used [Semantic UI Modal](https://react.semantic-ui.com/modules/modal/).
 
-The nice  feature (also annoying sometimes) of react is that if you render child component without using the `exact` keyword, you will also see the parent being rendered. So taking advantage of that, we can render project details in a modal (with blurring background) while the calendar is always being rendered in the background like the above picture:
+The nice  feature (also annoying sometimes) of react is that if you render child component without using the `exact` keyword, you will also see the parent being rendered. So taking advantage of that, we can render project details in a modal (with blurring background) while the calendar is always being rendered in the background:
 
 Remember itemrenderer function of ProjectTimeline component?
 
 ```javascript
   itemRenderer = ({ item }) => {
     return (
-    <Link to={`/projects/${item.id}`}><div onClick={this.handleOpen} style={{backgroundColor: item.bgColor, color: 'black'}}>{item.title}</div></Link>
+    <Link to={`/projects/${item.id}`}>
+		<div onClick={this.handleOpen} style={{backgroundColor: item.bgColor, color: 'black'}}>{item.title}</div>
+		</Link>
     )
 ```
 
-When users click on a project inside **Calendar**, they are redirected to **ProjectPage** `Link to={`/projects/${item.id}`}`.
+When users click on a project inside **Calendar**, they are redirected to **ProjectPage** (`Link to={`/projects/${item.id}`}`).
 
 ```javascript
 //AllProject component
     <Route path="/projects" component={AllProjects} />
-    <Route path="/projects/:projectID" render={routerProps => <ProjectPage projects={this.state.projects} {...routerProps} />}/>
+		<Route path="/projects/:projectID" render={routerProps => <ProjectPage projects={this.state.projects} {...routerProps} />}/>
 ```
 
 ```javascript
@@ -228,16 +231,16 @@ render(){
 
 ![Display single event](https://i.imgur.com/s6h9lqR.png)
 
-If you wonder about the <DatePicker /> inside modal, please read it [here](https://www.npmjs.com/package/react-datepicker). It is a nice way to render date instead of writing it down as text.
+If you wonder about the `<DatePicker />` inside modal, please read it [here](https://www.npmjs.com/package/react-datepicker). It is a nice way to render date instead of writing it down as text.
 
 In ProjectPage, **edit button** will bring them to **EditPage** `Link to={`/editproject/${project.id}`} `. I intended to not use the same pattern: `Link to={`/projects/${project.id}/edit`}` because if I used `Link to={`/projects/${project.id}/edit`}`, the **edit page** will be rendered underneath **calendar timeline**, which is really ugly. Instead, I want the **edit page** to be rendered alone, not under any parent element.
 
 ![Edit Page](https://i.imgur.com/pqBrhJn.png)
 
 
-However, if users do not want any further action, they can click on **Close button** go back to the page where they already are: **ProjectTimeline**. Once click, the server will update the url (`to '/projects'`), when the new url no longer matches with the assigned url (`'/projects/:projectID'`), it will be redirected back to **project page** .
+However, if users do not want any further action, they can click on **Close button** to go back to the page where they already were: **ProjectTimeline**. Once click, the server will update the url (`to '/projects'`), when the new url no longer matches with the assigned url (`'/projects/:projectID'`), it will be redirected back to **project page** .
 
-If you still feel unclear on how to use React Calendar Timeline or any of the package I have mentioned above, please check out their examples and my github repository for this [Wetask - Project Management application](https://github.com/nhinhdao/project-management-with-react-redux).
+If you still feel unclear on how to use **React Calendar Timeline** or any of the packages I have mentioned above, please check out their examples and my github repository for this [Wetask - Project Management application](https://github.com/nhinhdao/project-management-with-react-redux).
 
 I hope you enjoy this touch up. 
 
