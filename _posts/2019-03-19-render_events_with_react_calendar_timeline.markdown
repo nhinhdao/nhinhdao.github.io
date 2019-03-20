@@ -83,7 +83,9 @@ class AllProjects extends Component {
 
 **React Calendar Timeline** allows you to customise item renderer like drag, zoom, resize, itemClick... Please check out their github repository for more information. I used only the very basic functionality (display only) because I wanted users to go to a different page to edit the events instead:
 
-```javascript
+```
+//ProjectTimeline component
+
 class ProjectTimeline extends Component {
   itemRenderer = ({ item }) => {
     return (
@@ -113,14 +115,14 @@ class ProjectTimeline extends Component {
         </div>
 				<hr/>
         <Timeline groups={groups}
-				items={items}
-				sidebarContent={<h3>Project</h3>}
-				itemRenderer={this.itemRenderer}
-				itemHeightRatio={0.7}
-				defaultTimeStart={moment('2019-03-08')}
-				defaultTimeEnd={moment('2019-04-08')}
-				lineHeight={35}
-				/>
+        items={items}
+        sidebarContent={<h3>Project</h3>}
+        itemRenderer={this.itemRenderer}
+        itemHeightRatio={0.7}
+        defaultTimeStart={moment('2019-03-08')}
+        defaultTimeEnd={moment('2019-04-08')}
+        lineHeight={35}
+        />
 				</React.Fragment>
 				)
   }
@@ -168,65 +170,64 @@ Remember itemrenderer function of ProjectTimeline component?
 
 When users click on a project inside **Calendar**, they are redirected to **ProjectPage** (`Link to={`/projects/${item.id}`}`).
 
-```javascript
+```
 //AllProject component
     <Route path="/projects" component={AllProjects} />
 		<Route path="/projects/:projectID" render={routerProps => <ProjectPage projects={this.state.projects} {...routerProps} />} />
 ```
 
-```javascript
+```
 // ProjectPage component
 
 render(){
     const {project} = this.state
+    const start_date = new Date(project.start_date + " ");
+    const end_date = new Date(project.end_date + " ");
     return(
       <Modal open={this.state.open} dimmer='blurring'>
-			  <Modal.Header>{project.title}</Modal.Header>
-			  <Modal.Content image>
-				  <Modal.Description>
-					  <Header as="h4">Owner</Header>
-						<Label as='a' image><img src={project.owner.image} alt='img'/>{project.owner.username}</Label>
-						<Header as="h4">Description</Header>
-						<p>{project.description}</p>
-						<Form>
-						  <Form.Group inline>
-							  <label>Start Date</label>
-								<DatePicker onChange={this.handleChange} selected={project.start_date} disabled={true} placeholderText={start_date.toString()}/>
-								<label></label>
-								<label>End Date</label>
-								<DatePicker onChange={this.handleChange} selected={project.end_date} disabled={true} placeholderText={end_date.toString()} />
-								</Form.Group>
-							</Form>
-						<Header as="h4">Tasks</Header>
-						<Table basic='very' celled collapsing>
+        <Modal.Header>{project.title}</Modal.Header>
+        <Modal.Content image>
+          <Modal.Description>
+            <Header as="h4">Owner</Header>
+            <Label as='a' image><img src={project.owner.image} alt='img'/>{project.owner.username}</Label>
+            <Header as="h4">Description</Header>
+            <p>{project.description}</p>
+            <Form>
+              <Form.Group inline>
+                <label>Start Date</label>
+                <DatePicker onChange={this.handleChange} selected={start_date} disabled={true} placeholderText={start_date.toString()}/>
+                <label></label>
+                <label>End Date</label>
+                <DatePicker onChange={this.handleChange} selected={end_date} disabled={true} placeholderText={end_date.toString()} />
+              </Form.Group>
+            </Form>
+            <Header as="h4">Tasks</Header>
+            <Table basic='very' celled collapsing>
               <Table.Body>
                 {project.tasks.map((task, index) => 
                   <Table.Row  key={index}>
                     <Table.Cell>
                       <Header as='h5' image textAlign='center'>
                         <Image src={task.user.image} rounded size='mini' />
-												<Header.Content>{task.user.username}</Header.Content>
-											</Header>
-										</Table.Cell>
-										<Table.Cell>{task.content}</Table.Cell>
-										</Table.Row>
-										)}
-							</Table.Body>
-						</Table>
-					</Modal.Description>
-				</Modal.Content>
-				<Modal.Actions>
-          { project.owner.id === parseInt(localStorage.getItem("userID")) &&
-					<React.Fragment>
-					 <Link to={`/editproject/${project.id}`} onClick={this.close}><Button positive>Edit</Button></Link> 
-					 <Button negative  onClick={this.handleDelete}>Delete</Button>
-					</React.Fragment>
-					}
-					<Link to="/projects"><Button>Close</Button></Link>
-				</Modal.Actions>
-			</Modal>
-			)
-	}
+                        <Header.Content>{task.user.username}</Header.Content>
+                      </Header>
+                    </Table.Cell>
+                    <Table.Cell>{task.content}</Table.Cell>
+                  </Table.Row>
+                )}
+              </Table.Body>
+            </Table>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          {project.owner.id === parseInt(localStorage.getItem("userID")) ? 
+          <React.Fragment><Link to={`/editproject/${project.id}`} onClick={this.close}><Button positive>Edit</Button></Link> 
+          <Button negative  onClick={this.handleDelete}>Delete</Button></React.Fragment> : null}
+          <Link to="/projects"><Button>Close</Button></Link>
+        </Modal.Actions>
+      </Modal>
+    )
+  }
 ```
 
 ![Display single event](https://i.imgur.com/s6h9lqR.png)
