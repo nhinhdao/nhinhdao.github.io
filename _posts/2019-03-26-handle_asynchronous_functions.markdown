@@ -3,6 +3,7 @@ layout: post
 title:      "Handle Asynchronous Functions"
 date:       2019-03-26 17:58:16 -0400
 permalink:  handle_asynchronous_functions
+# header-img: "https://i.imgur.com/rnqtsyy.png"
 ---
 
 ![Sync and Async Task](https://i.imgur.com/rnqtsyy.png)
