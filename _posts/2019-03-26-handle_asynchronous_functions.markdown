@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Handle Asynchronous Functions"
-date:       2019-03-26 21:58:15 +0000
+date:       2019-03-26 17:58:16 -0400
 permalink:  handle_asynchronous_functions
 ---
 
@@ -63,7 +63,7 @@ state = {count: 1};
 		 
 changeCount = () => {
 		console.log('Count before: ', this.state);
-		this.setState({count: 2}), () => console.log('Count after: ', this.state)
+		this.setState({count: 2}, () => console.log('Count after: ', this.state))
 }
 ```
 
@@ -78,7 +78,7 @@ increaseStateCount = () => {
   this.setState({count: 2})
 }
 
-async callNow = () => {
+async callNow(){
   console.log('Count before: ', this.state);
   await this.increaseStateCount();
   console.log('Count after: ', this.state)
