@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "The Message Book"
+title:      "Ruby on Rails - The Message Book"
 date:       2018-11-20 18:12:47 -0500
 permalink:  the_message_book
 ---
