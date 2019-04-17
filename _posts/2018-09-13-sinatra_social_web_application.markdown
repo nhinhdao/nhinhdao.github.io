@@ -1,16 +1,18 @@
 ---
 layout: post
-title:      "Sinatra Social Web Application"
+title:      "Sinatra - The Message Book"
 date:       2018-09-13 21:41:15 -0400
 permalink:  sinatra_social_web_application
 ---
 
 
-![Home Page](https://i.imgur.com/A6WoZas.png?2)
+![Log In  Page](https://i.imgur.com/g3cJ3vu.png)
 
 Building a simple **sinatra web application** isn't hard but it sure will take time and effort to end up having a site that is interactive and informative.
 
-I want to build a website that mimics the connection between **users** (as **user** and **friends**) and their messages (I hope to make *real-time conversation* soon). 
+This application is built with Ruby and Sinatra. It allows users to make friends and send messages to each other.
+
+![Homepage](https://i.imgur.com/OMWsFVr.png)
 
 From the few first lines of code, I already bumped into some headache. Think about relationship between them:
 **User** `has_many` **Friends**, sounds good. But **Friend** `has_many` **Users**? or `belongs_to` a **User**? doesn't sound right. After all **Friend** is just another **User**. 
@@ -114,7 +116,7 @@ To get the messages that were sent to current user
 messages_from_friends = Message.all.select {|m| m.friend == current_user}
 ```
 
-![](https://i.imgur.com/MfwFp6t.png?1)
+![Messages](https://i.imgur.com/Ls0IoTX.png)
 
 Similarly, **Friendship** belongs to a **User** and a **Friend** (another **User**), a `Friendship.new` can only have 1 **user_id** and 1 **friend_id**, not **2 user_ids**. 
 
@@ -143,7 +145,7 @@ post '/users/create_friends' do
 end
 ```
 
-![Friend_list](https://i.imgur.com/2hITe8a.png?1)
+![Friend_list](https://i.imgur.com/pA4VXbH.png)
 
 Those big tangles were combed but there are also lots of minor problems as you all face when you program. 
 
