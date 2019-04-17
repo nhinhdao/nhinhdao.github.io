@@ -6,34 +6,13 @@ permalink:  the_message_book
 ---
 
 
-I don't know why I use this ***"fancy"*** name instead of **Message Transfer Web Application** or literally **rails-messages-transfer-project** as its name on my github. Well, at least it does imply its job. Sorry **The Face Book** for this somewhat similarity.
-
-Before talking about the highlights, I would like to introduce this project again.
-
-This is not a new project, instead is an upgraded version of the [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) I have done last month. It is a web application acting as a social app where **user** can **make friends**, **send messages** to each other. This version, however, I added **posts** and some other functions and was built in **Ruby on Rails** so it is the same idea but has mostly different codes and logics behind. So, let's get started.
-
-This web application is made to run on your local machine [http://localhost:3000](#) so it is half static, half dynamic. It can change **connections** between **users** and their activities based on their choices but it is not an online site like **Facebook**, **Instagram**, **Twitter**... All changes happen to one **user** (local machine) at a time and is stored to his/her local database while the application is running.  I hope to make it go online soon (I really do want to accomplish it)
-
-Here are some pictures of how my application looks like.
-
-![User Log In/Sign Up page](https://i.imgur.com/sDZLTun.png)
-> User Log In/Sign Up page
-
-![Home Page](https://i.imgur.com/DlGGbQP.png)
-> Home page
-
-![User's messages page](https://i.imgur.com/JE6G5UV.png)
-> User's messages page
-
-![Friends list](https://i.imgur.com/V6rPcrX.png!)
-> Friends list
-
+**The Message Book** is an upgraded version of the [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application). It is a web application which allows **users** to **make friends**, **send messages** to each other. This version, however, I added **posts** and was built with **Ruby on Rails**.
 
 For major details and logics behind this app, please visit my github project page [rails-messages-transfer-project](rails-messages-transfer-project) or review my [sinatra-messages-transfer-project](https://nhinhdao.github.io/sinatra_social_web_application) post. 
 
 I want to highlight some of the new features and the useful gems I've used in this project.
 
-First of all, **user** can now choose to log in through a third website. Because it is a simple web application, I limit  user to only using **Facebook**. Basically, together with signing up as a new **user** which means more accounts to maintain, one can just log in through **facebook** and **facebook** will send the **token** uniquely assigns to each account back to the web application. This token is then stored in the web application database and is used to set up/maintain user's informations.
+First of all, **user** can now choose to log in through a third website. Because it is a simple web application, I limit  user to only using **Facebook**. Basically, together with signing up as a new **user** which means more accounts to maintain, one can just log in through **facebook** and **facebook** will send the **token** uniquely assigned to each account back to the web application. This token is then stored in the web application database and is used to set retrive user's informations.
 
 For the steps to install needed gems and intergrate **facebook omniauth** to a rails project, please visit [omniauth-facebook](https://github.com/mkdynamic/omniauth-facebook).
 
@@ -119,10 +98,10 @@ end
 
 Beside **Faker** gem, I added **Gravatar** to generate **avatar** for **user**, which make your site looks more lively and closer to a social application. Install [gravatar](https://github.com/sinisterchipmunk/gravatar) is simple.
 
-You can choose **type of avatar** by added  `+ '?d=wavatar'` at the end of the line of code:
+You can choose **type of avatar** by added  `+ '?d=<type of icon>'` at the end of the line of code. There are a few types including: wavata, identicon, monsterid, and default> For example:
 
 ```ruby
-user.image = Gravatar.new("#{email}").image_url + '?d=wavatar'
+user.image = Gravatar.new("#{email}").image_url + '?d=identicon'
 
 or 
 
@@ -130,10 +109,10 @@ or
 ```
 
 
-identicon ![identicon](https://i.imgur.com/M9rdvQV.png?1)     
-wavatar ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        
-monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    
-default  ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
+* identicon ![identicon](https://i.imgur.com/N5sTOMS.png?1) 
+* wavata ![wavatar](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=wavatar&forcedefault=1)        
+* monsterid ![monsterid](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?default=monsterid&forcedefault=1)    
+* default ![default](https://www.gravatar.com/avatar/ee4d1b570eff6ce63c7d97043980a98c?forcedefault=1)
 
 One more useful gem for those who wants to make their pages readable if they have long content pages is [will_paginate](https://github.com/mislav/will_paginate). 
 
